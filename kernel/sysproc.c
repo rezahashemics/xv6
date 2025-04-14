@@ -7,6 +7,26 @@
 #include "proc.h"
 
 uint64
+sys_log_message(void)
+{
+  int level;
+  uint64 msg_ptr;
+
+  // دریافت آرگومان‌ها از فضای یوزر
+  if (argint(0, &level) < 0)
+    return -1;
+  if (argaddr(1, &msg_ptr) < 0)
+    return -1;
+
+  char buf[256];
+  if (copyin(myproc()->pagetable, buf, msg_ptr, sizeof(buf)) < 0)
+    return -1;
+
+  log_message(level, buf);
+  return 0;
+}
+
+uint64
 sys_exit(void)
 {
   int n;

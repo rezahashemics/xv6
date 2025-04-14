@@ -3,6 +3,8 @@
 #include "memlayout.h"
 #include "riscv.h"
 #include "defs.h"
+#include "custom_logger.h"
+
 
 volatile static int started = 0;
 
@@ -31,6 +33,11 @@ main()
     userinit();      // first user process
     __sync_synchronize();
     started = 1;
+    // Adding warning err and info to the logger
+    log_info("Welcome to AUT MCS Principles of Operating Systems Course. This message is from a custom logger implemented by student_number.");
+    log_warn("This is a test warning message for the custom logger");
+    log_error("This is a test error message for the custom logger");
+
   } else {
     while(started == 0)
       ;

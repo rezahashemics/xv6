@@ -22,6 +22,7 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+int log_message(int level, const char *message);
 
 // ulib.c
 int stat(const char*, struct stat*);
